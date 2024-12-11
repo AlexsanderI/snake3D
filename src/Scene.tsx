@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { useControls } from 'leva'
 import { Perf } from 'r3f-perf'
 import { useRef } from 'react'
-import { BoxGeometry, Mesh, MeshBasicMaterial } from 'three'
+import { BoxGeometry, Mesh, MeshBasicMaterial, Object3D } from 'three'
 import { Cube } from './components/Cube'
 import { Field } from './components/Field'
 import { Sky } from '@react-three/drei'
@@ -13,8 +13,10 @@ import Snake from './components/Snake'
 import Apple from './components/Apple'
 function Scene() {
   const { performance } = useControls('Monitoring', {
-    performance: false,
+    performance: true,
   })
+  const targetRef = useRef(new Object3D())
+
   // const { positionX, positionY, rotationZ } =
   //   useControls('Snake', {
   //     positionX: 0,
@@ -41,11 +43,18 @@ function Scene() {
       <OrbitControls makeDefault />
 
       <directionalLight
-        position={[-2, 2, 3]}
+        position={[-3, 3, 5]}
+        shadow-mapSize={[1024 * 2, 1024 * 2]}
         intensity={1.5}
         castShadow
-        shadow-mapSize={[1024 * 2, 1024 * 2]}
+        shadow-camera-near={0.1}
+        shadow-camera-far={20}
+        shadow-camera-left={-14}
+        shadow-camera-right={14}
+        shadow-camera-top={14}
+        shadow-camera-bottom={-14}
       />
+
       <ambientLight intensity={0.2} />
 
       {/* <Cube /> */}

@@ -1,10 +1,10 @@
-import { useControls } from 'leva'
 import * as PRISMA from '../assets/snakeModel/snakeBody/snakeBodyPrisma'
 import SnakeTrail from '../assets/snakeModel/snakeTail/snakeTail'
 import SnakeHead from '../assets/snakeModel/snakeHead/SnakeHead'
 import { useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
+import { useControls } from 'leva'
 
 const Snake /*: React.FC<SnakeProps>*/ = () => {
   const { position_x, position_y, rotation_z } = useControls({
@@ -16,7 +16,7 @@ const Snake /*: React.FC<SnakeProps>*/ = () => {
   let positionY = 0
   useFrame((_, delta) => {
     if (groupRef.current) {
-      const speed = -1
+      const speed = 5
       positionY = positionY + speed * delta
       groupRef.current.position.set(0, positionY, 0)
     }
