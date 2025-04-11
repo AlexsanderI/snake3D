@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "comments/`Snake`.md",
+                "file": "comments/разрешение на запуск.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "`Snake`"
+              "title": "разрешение на запуск"
             }
           }
         ]
@@ -171,53 +171,32 @@
   },
   "active": "9e2c3f7f2bdbfb3b",
   "lastOpenFiles": [
-
     "comments/обновления игрового движка.md",
-    "comments/текущем уровне игры.md",
+    "comments/разрешение на запуск.md",
     "comments/условия завершения игры.md",
-
-    "comments/ЗМЕЙКА.md",
-    "comments/АНИМИРОВАТЬ.md",
-    "comments/`Snake`.md",
-    "comments/ГОЛОВЫ.md",
-    "comments/ГРУППУ ПЕРСОНАЖЕЙ.md",
-
+    "comments/`setLoop`.md",
     "comments/СЦЕНУ ИГРЫ.md",
+    "comments/ГРУППУ ПЕРСОНАЖЕЙ.md",
+    "comments/ОКРУЖЕНИЕ.md",
+    "comments/ПОЛЕ.md",
+    "comments/ЯБЛОКО.md",
+    "comments/ЗМЕЙКА.md",
     "comments/`Scene`.md",
+    "comments/текущем уровне игры.md",
     "comments/ГЛАВНЫМ КОМПОНЕНТОМ.md",
-    "comments/компонента-оболочки.md",
-    "comments/отладочная панель.md",
+    "comments/управления камерой.md",
     "comments/холст.md",
+    "comments/отладочная панель.md",
+    "comments/компонента-оболочки.md",
     "comments/ГЛАВНЫЙ ФАЙЛ.md",
+    "comments/отключается прокрутка.md",
     "comments/параметры стартового уровня.md",
     "comments/стартовый файл.md",
-    "comments/index.md",
-    "comments/main.md",
     "COMMENTS.md",
-
-    "comments/разрешение на запуск.md",
-    "comments/`setLoop`.md",
-    "comments/ФАКТИЧЕСКУЮ СЦЕНУ.md",
-    "comments/управления камерой.md",
-    "comments/`menuStore`.md",
-    "comments/компонент меню.md",
-    "comments/`Main`.md",
-    "README.md",
-    "comments/2025-04-09.md",
-    "comments/Модуль snakeAnimation.md",
-    "comments/функциональный модуль.md",
-    "comments/объектный модуль.md",
-
-    "comments/TYPESCRIPT.md",
-    "comments/tsconfig.node.md",
-    "comments/tsconfig.md",
-    "comments/VITE.md",
-    "src/components/Snake.tsx",
-    "src/components/Snake1.tsx",
-    "vite.config.ts.timestamp-1743613956228-5c153496d573c.mjs",
-    "src/engine/levels/loadLevelProps.ts",
-    "vite.config.ts.timestamp-1743012343845-39bc3ced5aa39.mjs",
-
+    "comments/ГОЛОВЫ.md",
+    "comments/АНИМИРОВАТЬ.md",
+    "comments/`Game`.md",
+    "comments/index.md",
     "comments",
     "Новая папка",
     "out/index.html",
