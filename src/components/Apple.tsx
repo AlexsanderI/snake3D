@@ -14,16 +14,23 @@ import { SystemConfig } from '../config/systemConfig'
 const COUNTER_RESET_VALUE = 1000000
 
 // ✅ Флаги для ручного тестирования
-const DEBUG_MODE = true
-const FORCE_SPINNER = true
+const DEBUG_MODE = false
+const FORCE_SPINNER = false
+const FORCE_LOAD_ERROR = false
 const FORCE_ERROR = false
 
 const Apple: React.FC = () => {
+  // 🟥 Если принудительная ошибка активна — сразу рендерим ErrorScreen
+  if (DEBUG_MODE && FORCE_ERROR && !FORCE_SPINNER) {
+    console.log('Принудительная отладочная ошибка (FORCE_ERROR)')
+
+    return <ErrorScreen message='Принудительная отладочная ошибка (FORCE_ERROR)' />
+  }
+
   const [loadError, setLoadError] = React.useState<Error | null>(null)
 
-  // ⚠️ Если DEBUG_MODE + FORCE_ERROR — сразу имитируем ошибку загрузки
   const gltf = useGLTF(
-    DEBUG_MODE && FORCE_ERROR ? '/broken-path.glb' : '/apple.glb',
+    DEBUG_MODE && FORCE_LOAD_ERROR ? '/broken-path.glb' : '/apple.glb',
     undefined,
     undefined,
     (error) => {
@@ -45,11 +52,6 @@ const Apple: React.FC = () => {
       counterRef.current = (counterRef.current + 1) % COUNTER_RESET_VALUE
       if (counterRef.current % FRAME_SKIP !== 0) return
 
-      // 💣 DEBUG — тест ошибки внутри updatePosition
-      if (DEBUG_MODE && FORCE_ERROR && !FORCE_SPINNER) {
-        throw new Error('Тестовая ошибка в useFrame')
-      }
-
       updatePosition()
     } catch (error) {
       console.error('Ошибка обновления позиции яблока:', error)
@@ -61,17 +63,17 @@ const Apple: React.FC = () => {
     return () => useGLTF.clear('/apple.glb')
   }, [])
 
-  // 🟥 Отображаем ошибку
-  if (loadError || (DEBUG_MODE && FORCE_ERROR && !FORCE_SPINNER)) {
-    return <ErrorScreen message={(loadError || new Error('Тестовая ошибка')).message} />
+  // 🟥 Если произошла реальная ошибка — показываем её
+  if (loadError) {
+    return <ErrorScreen message={loadError.message} />
   }
 
-  // ⏳ Отображаем спиннер
+  // ⏳ Показываем спиннер
   if (!gltf?.scene || (DEBUG_MODE && FORCE_SPINNER)) {
     return <Spinner />
   }
 
-  // ✅ Отображаем модель
+  // ✅ Показываем модель
   return <primitive object={gltf.scene} position={debouncedPosition} scale={scaleArray} />
 }
 
