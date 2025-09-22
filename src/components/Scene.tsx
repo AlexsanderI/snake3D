@@ -9,6 +9,8 @@ import { cameraCONFIG } from '../config/cameraConfig'
 import { getSnakeUnitPosition } from '../animations/snakeAnimation/bodyAnimations/snakeBodyProps'
 import { getSnakeBodyCoord } from '../engine/snake/snake'
 import { getCurrentFoodNumber } from '../engine/food/currentFoodNumber'
+// import Hedgehog from '../assets/hedgehog/Hedgehog'
+import { ObstaclesX } from './Obstacles'
 
 let counter = 0
 let currentFoodNumber = 0
@@ -50,6 +52,21 @@ export function Scene() {
 
       <Snake />
       <Apple />
+      <ObstaclesX
+      // bounds={{ X: [-3.5, 3.5], Y: [-3.5, 3.5] }} // границы твоего поля — подставь реальные
+      // items={[
+      //   {
+      //     id: 'h1',
+      //     type: 'hedgehog',
+      //     axis: 'X', // бежит по оси X (влево/вправо)
+      //     direction: 1, // 1 = вправо (стартовое направление)
+      //     speed: 0.8, // скорость (ю/сек) — подстрой под масштаб
+      //     initial: 'random', // стартовая позиция рандомно в пределах bounds.X
+      //   },
+      // ]}
+      // randomFlip={true} // опционально: иногда разворачивать движение случайно
+      // randomFlipEverySec={[3, 8]} // как часто (сек): случайно между 3 и 8
+      />
       <Field />
       <Environment />
     </>

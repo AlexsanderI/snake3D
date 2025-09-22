@@ -46,3 +46,8 @@ export interface MushroomProps extends assetsProps {}
 export interface RockProps extends assetsProps {
   color?: number
 }
+
+export type positionAnimationProps = {
+  initialPosition: number[]
+  finalPosition: number[]
+}
