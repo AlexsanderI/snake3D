@@ -10,7 +10,7 @@ import { getSnakeUnitPosition } from '../animations/snakeAnimation/bodyAnimation
 import { getSnakeBodyCoord } from '../engine/snake/snake'
 import { getCurrentFoodNumber } from '../engine/food/currentFoodNumber'
 // import Hedgehog from '../assets/hedgehog/Hedgehog'
-import { ObstaclesX } from './Obstacles'
+import Obstacles from './Obstacles'
 
 let counter = 0
 let currentFoodNumber = 0
@@ -52,7 +52,7 @@ export function Scene() {
 
       <Snake />
       <Apple />
-      <ObstaclesX
+      <Obstacles
       // bounds={{ X: [-3.5, 3.5], Y: [-3.5, 3.5] }} // границы твоего поля — подставь реальные
       // items={[
       //   {

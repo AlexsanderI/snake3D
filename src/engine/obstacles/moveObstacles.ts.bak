@@ -12,8 +12,6 @@ import setObstacleStep from "./setObstacleStep"
 import { getSnakeHeadParams } from "../snake/snake"
 import { getStep } from "../time/timerStepPerLevel"
 
-const isDebugMoveObstacles = process.env.NODE_ENV !== 'production'
-
 function moveObstacles(type: string): void {
   const stopDistance = getStep() + 2
   const isSnakeMoving =
@@ -21,22 +19,7 @@ function moveObstacles(type: string): void {
     getSnakeHeadParams().snakeHeadStepY !== 0
   const { coord, step } = selectObstacleDirection(type)
 
-  if (!checkTimerWorking()) {
-    if (isDebugMoveObstacles) {
-      console.log('[moveObstacles] timer inactive', { type })
-    }
-    return
-  }
-
-  if (isDebugMoveObstacles) {
-    console.log('[moveObstacles] tick start', {
-      type,
-      stopDistance,
-      isSnakeMoving,
-      coord: coord.map((item) => [...item]),
-      step: [...step],
-    })
-  }
+  if (!checkTimerWorking()) return
 
   const twist = type === 'y' ? [0, 1] : [1, 0]
 
@@ -55,27 +38,12 @@ function moveObstacles(type: string): void {
         ? 0
         : newStep
     coord[i][twist[0]] += newStep
-
-    if (isDebugMoveObstacles) {
-      console.log('[moveObstacles] obstacle tick', {
-        type,
-        index: i,
-        requestedStep: step[i],
-        appliedStep: newStep,
-        newPos,
-        coord: [...coord[i]],
-      })
-    }
   }
 
   if (type === 'x') {
     X.setObstaclesXCoord(coord)
   } else {
     Y.setObstaclesYCoord(coord)
-  }
-
-  if (isDebugMoveObstacles) {
-    console.log('[moveObstacles] tick finish', { type, coord: coord.map((item) => [...item]) })
   }
 }
 
