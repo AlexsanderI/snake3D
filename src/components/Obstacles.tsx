@@ -3,118 +3,91 @@
 // hedgehog must be change direction after hit about borders of field
 // adjast size of hedgehog
 
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import Hedgehog from '../assets/hedgehog/Hedgehog'
+import { getField } from '../engine/field/fieldPerLevel'
+import * as OBSTACLES_X from '../engine/obstacles/obstaclesX'
 
-const Obstacles = () => {
-  const hedgehogRef1 = useRef<THREE.Group>(null)
-  const hedgehogRef2 = useRef<THREE.Group>(null)
-  const hedgehogRef3 = useRef<THREE.Group>(null)
-  const hedgehogRef4 = useRef<THREE.Group>(null)
+interface HedgehogData {
+  ref: React.RefObject<THREE.Group>
+  pos: number
+  dir: number
+  // speed: number
+  axis: 'X' | 'Y'
+  baseX: number
+  baseY: number
+}
 
-  // Переменные для отслеживания позиций и направлений
-  const movement = useRef({
-    hedgehog1: { pos: -5, dir: 1, speed: 2 }, // Движение по X
-    hedgehog2: { pos: 3, dir: -1, speed: 1.5 }, // Движение по Y
-    hedgehog3: { pos: 0, dir: 1, speed: 3 }, // Быстрое движение по X
-    hedgehog4: { pos: -2, dir: 1, speed: 2.5 }, // Движение по Y
-  })
+const Obstacles: React.FC = () => {
+  const [hedgehogs, setHedgehogs] = useState<HedgehogData[]>([])
+
+  useEffect(() => {
+    const gridSize = getField()
+    const FIELD_LIMIT = Math.floor(gridSize / 2) // границы по размеру поля
+
+    const xObstacles = OBSTACLES_X.getObstaclesXCoord()
+
+    const hedgehogList: HedgehogData[] = xObstacles.map(
+      (coord: number[], index: number) => ({
+        ref: React.createRef<THREE.Group>(),
+        pos: coord[0],
+        dir: Math.random() > 0.5 ? 1 : -1,
+        // speed: 1 + Math.random() * 2,
+        axis: 'X',
+        baseX: coord[0],
+        baseY: coord[1],
+      })
+    )
+
+    setHedgehogs(
+      hedgehogList.map((h) => ({
+        ...h,
+        pos: Math.max(-FIELD_LIMIT, Math.min(FIELD_LIMIT, h.pos)),
+      }))
+    )
+  }, [])
 
   useFrame((_, delta) => {
-    const mov = movement.current
+    const gridSize = getField()
+    const FIELD_LIMIT = Math.floor(gridSize / 2)
 
-    // Ежик 1 - горизонтальное движение (тип 'x')
-    if (hedgehogRef1.current) {
-      mov.hedgehog1.pos += mov.hedgehog1.speed * mov.hedgehog1.dir * delta
+    setHedgehogs((prev) =>
+      prev.map((h) => {
+        let newPos = h.pos + h.dir * delta
 
-      // Отражение от границ
-      if (mov.hedgehog1.pos >= 8) {
-        mov.hedgehog1.pos = 8
-        mov.hedgehog1.dir = -1
-      } else if (mov.hedgehog1.pos <= -8) {
-        mov.hedgehog1.pos = -8
-        mov.hedgehog1.dir = 1
-      }
+        // отскок от краёв поля
+        if (newPos >= FIELD_LIMIT) {
+          newPos = FIELD_LIMIT
+          h.dir = -1
+        } else if (newPos <= -FIELD_LIMIT) {
+          newPos = -FIELD_LIMIT
+          h.dir = 1
+        }
 
-      hedgehogRef1.current.position.set(mov.hedgehog1.pos, -3, 0)
-      hedgehogRef1.current.rotation.z = mov.hedgehog1.dir > 0 ? 0 : Math.PI
-    }
+        if (h.ref.current) {
+          if (h.axis === 'X') {
+            h.ref.current.position.set(newPos, h.baseY, 0)
+            h.ref.current.rotation.z = h.dir > 0 ? 0 : Math.PI
+          } else {
+            h.ref.current.position.set(h.baseX, newPos, 0)
+            h.ref.current.rotation.z = h.dir > 0 ? Math.PI / 2 : -Math.PI / 2
+          }
+        }
 
-    // Ежик 2 - вертикальное движение (тип 'y')
-    if (hedgehogRef2.current) {
-      mov.hedgehog2.pos += mov.hedgehog2.speed * mov.hedgehog2.dir * delta
-
-      // Отражение от границ
-      if (mov.hedgehog2.pos >= 8) {
-        mov.hedgehog2.pos = 8
-        mov.hedgehog2.dir = -1
-      } else if (mov.hedgehog2.pos <= -8) {
-        mov.hedgehog2.pos = -8
-        mov.hedgehog2.dir = 1
-      }
-
-      hedgehogRef2.current.position.set(2, mov.hedgehog2.pos, 0)
-      hedgehogRef2.current.rotation.z = mov.hedgehog2.dir > 0 ? Math.PI / 2 : -Math.PI / 2
-    }
-
-    // Ежик 3 - быстрое горизонтальное движение (тип 'fix-R')
-    if (hedgehogRef3.current) {
-      mov.hedgehog3.pos += mov.hedgehog3.speed * mov.hedgehog3.dir * delta
-
-      // Отражение от границ с меньшим диапазоном для fix типа
-      if (mov.hedgehog3.pos >= 6) {
-        mov.hedgehog3.pos = 6
-        mov.hedgehog3.dir = -1
-      } else if (mov.hedgehog3.pos <= -6) {
-        mov.hedgehog3.pos = -6
-        mov.hedgehog3.dir = 1
-      }
-
-      hedgehogRef3.current.position.set(mov.hedgehog3.pos, 1, 0)
-      hedgehogRef3.current.rotation.z = mov.hedgehog3.dir > 0 ? 0 : Math.PI
-    }
-
-    // Ежик 4 - вертикальное патрулирование (тип 'fix-M')
-    if (hedgehogRef4.current) {
-      mov.hedgehog4.pos += mov.hedgehog4.speed * mov.hedgehog4.dir * delta
-
-      // Отражение от границ с средним диапазоном
-      if (mov.hedgehog4.pos >= 4) {
-        mov.hedgehog4.pos = 4
-        mov.hedgehog4.dir = -1
-      } else if (mov.hedgehog4.pos <= -4) {
-        mov.hedgehog4.pos = -4
-        mov.hedgehog4.dir = 1
-      }
-
-      hedgehogRef4.current.position.set(-3, mov.hedgehog4.pos, 0)
-      hedgehogRef4.current.rotation.z = mov.hedgehog4.dir > 0 ? Math.PI / 2 : -Math.PI / 2
-    }
+        return { ...h, pos: newPos }
+      })
+    )
   })
 
   return (
     <group>
-      {/* Препятствие типа 'x' - горизонтальное движение */}
-      <group ref={hedgehogRef1} position={[-5, -3, 0]}>
-        <Hedgehog direction={[1]} index={0} line={'X'} />
-      </group>
-
-      {/* Препятствие типа 'y' - вертикальное движение */}
-      <group ref={hedgehogRef2} position={[2, 3, 0]}>
-        <Hedgehog direction={[1]} index={0} line={'Y'} />
-      </group>
-
-      {/* Препятствие типа 'fix-R' - быстрое горизонтальное */}
-      <group ref={hedgehogRef3} position={[0, 1, 0]}>
-        <Hedgehog direction={[1]} index={0} line={'X'} />
-      </group>
-
-      {/* Препятствие типа 'fix-M' - среднее вертикальное */}
-      <group ref={hedgehogRef4} position={[-3, -2, 0]}>
-        <Hedgehog direction={[1]} index={0} line={'Y'} />
-      </group>
+      {hedgehogs.map((h, i) => (
+        <group key={i} ref={h.ref} position={[h.baseX, h.baseY, 0]}>
+          <Hedgehog direction={[1]} index={0} line={h.axis} />
+        </group>
+      ))}
     </group>
   )
 }
