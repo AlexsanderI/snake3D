@@ -10,55 +10,55 @@
  *    @function getObstaclesYCoord Возвращает массив координат
  *    @function getObstaclesStepY Возвращает массив шагов
  */
-import { getObstacles } from "./obstaclesPerLevel";
+import { getObstacles } from './obstaclesPerLevel'
 /**
  * @var массив строк 'y' для каждого препятствия, движущегося по вертикали
  */
-let obstaclesY: string[] = [];
+let obstaclesY: string[] = []
 /**
  * @var массив координат [x, y] для препятствий, движущихся по вертикали
  */
-let obstaclesYCoord: number[][] = [];
+let obstaclesYCoord: number[][] = []
 /**
  * @var массив из 1 и -1, шагов для препятствий, движущихся по вертикали
  */
-let obstaclesStepY: number[] = [];
+let obstaclesStepY: number[] = []
 /**
  * Выделяет из всех препятствий те, что движутся по вертикали и задает им шаг
  */
 export function setObstaclesY(): void {
-  obstaclesY = getObstacles().filter((obstacle) => obstacle === "y");
-  obstaclesStepY = obstaclesY.map(() => (Math.random() < 0.5 ? 1 : -1));
+  obstaclesY = getObstacles().filter((obstacle) => obstacle === 'y')
+  obstaclesStepY = obstaclesY.map(() => (Math.random() < 0.5 ? 1 : -1))
 }
 /**
  * Заносит массив координат [x, y] препятствий в obstaclesYCoord
  * @param obstacles массив координат [x, y] препятствий
  */
 export function setObstaclesYCoord(obstacles: number[][]): void {
-  obstaclesYCoord = [...obstacles];
+  obstaclesYCoord = [...obstacles]
 }
 /**
  * Задает шаг для всех препятствий, движущихся по вертикали
  * @param steps массив шагов для всех препятствий, движущихся по вертикали
  */
 export function setObstaclesStepY(steps: number[]): void {
-  obstaclesStepY = [...steps];
+  obstaclesStepY = [...steps]
 }
 /**
  * Возвращает массив строк 'y' для препятствий, движущихся по вертикали
  */
 export function getObstaclesY(): string[] {
-  return obstaclesY;
+  return obstaclesY
 }
 /**
  * Возвращает массив координат [x, y] препятствий, движущихся по вертикали
  */
 export function getObstaclesYCoord(): number[][] {
-  return obstaclesYCoord;
+  return obstaclesYCoord
 }
 /**
  * Возвращает массив шагов препятствий, движущихся по вертикали
  */
 export function getObstaclesStepY(): number[] {
-  return obstaclesStepY;
+  return obstaclesStepY
 }
