@@ -1,20 +1,18 @@
-// see Obstacles1.tsx
-// connect hedgehog with levels.json
-// hedgehog must be change direction after hit about borders of field
-// adjast size of hedgehog
-
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import Hedgehog from '../assets/hedgehog/Hedgehog'
 import { getField } from '../engine/field/fieldPerLevel'
 import * as OBSTACLES_X from '../engine/obstacles/obstaclesX'
+import * as OBSTACLES_Y from '../engine/obstacles/obstaclesY'
+import { getTimer } from '../engine/time/timer'
 
 interface HedgehogData {
   ref: React.RefObject<THREE.Group>
-  pos: number
-  dir: number
-  // speed: number
+  posX: number
+  posY: number
+  dirX: number
+  dirY: number
   axis: 'X' | 'Y'
   baseX: number
   baseY: number
@@ -25,71 +23,113 @@ const Obstacles: React.FC = () => {
 
   useEffect(() => {
     const gridSize = getField()
-    const FIELD_LIMIT = Math.floor(gridSize / 2) // границы по размеру поля
+    const FIELD_LIMIT = Math.floor(gridSize / 2)
 
-    const xObstacles = OBSTACLES_X.getObstaclesXCoord()
+    // Получаем координаты, как в Obstacles1.tsx
+    const xCoords = OBSTACLES_X.getObstaclesXCoord().map((coord: number[]) => [
+      Math.round(coord[0] - gridSize / 2 - 1),
+      Math.round(coord[1] - gridSize / 2 - 1),
+    ])
+    const yCoords = OBSTACLES_Y.getObstaclesYCoord().map((coord: number[]) => [
+      Math.round(coord[0] - gridSize / 2 - 1),
+      Math.round(coord[1] - gridSize / 2 - 1),
+    ])
 
-    const hedgehogList: HedgehogData[] = xObstacles.map(
-      (coord: number[], index: number) => ({
+    const hedgehogList: HedgehogData[] = []
+
+    // создаём ёжиков по X
+    xCoords.forEach((coord: number[]) => {
+      hedgehogList.push({
         ref: React.createRef<THREE.Group>(),
-        pos: coord[0],
-        dir: Math.random() > 0.5 ? 1 : -1,
-        // speed: 1 + Math.random() * 2,
+        posX: coord[0],
+        posY: coord[1],
+        dirX: Math.random() > 0.5 ? 1 : -1,
+        dirY: 0,
         axis: 'X',
         baseX: coord[0],
         baseY: coord[1],
       })
-    )
+    })
+
+    // создаём ёжиков по Y
+    yCoords.forEach((coord: number[]) => {
+      hedgehogList.push({
+        ref: React.createRef<THREE.Group>(),
+        posX: coord[0],
+        posY: coord[1],
+        dirX: 0,
+        dirY: Math.random() > 0.5 ? 1 : -1,
+        axis: 'Y',
+        baseX: coord[0],
+        baseY: coord[1],
+      })
+    })
 
     setHedgehogs(
       hedgehogList.map((h) => ({
         ...h,
-        pos: Math.max(-FIELD_LIMIT, Math.min(FIELD_LIMIT, h.pos)),
+        posX: Math.max(-FIELD_LIMIT, Math.min(FIELD_LIMIT, h.posX)),
+        posY: Math.max(-FIELD_LIMIT, Math.min(FIELD_LIMIT, h.posY)),
       }))
     )
-  }, [])
+  }, [getTimer()]) // обновление по таймеру, как в Obstacles1
 
+  // Метод движения — без изменений
   useFrame((_, delta) => {
     const gridSize = getField()
     const FIELD_LIMIT = Math.floor(gridSize / 2)
 
     setHedgehogs((prev) =>
       prev.map((h) => {
-        let newPos = h.pos + h.dir * delta
+        let newX = h.posX
+        let newY = h.posY
 
-        // отскок от краёв поля
-        if (newPos >= FIELD_LIMIT) {
-          newPos = FIELD_LIMIT
-          h.dir = -1
-        } else if (newPos <= -FIELD_LIMIT) {
-          newPos = -FIELD_LIMIT
-          h.dir = 1
-        }
-
-        if (h.ref.current) {
-          if (h.axis === 'X') {
-            h.ref.current.position.set(newPos, h.baseY, 0)
-            h.ref.current.rotation.z = h.dir > 0 ? 0 : Math.PI
-          } else {
-            h.ref.current.position.set(h.baseX, newPos, 0)
-            h.ref.current.rotation.z = h.dir > 0 ? Math.PI / 2 : -Math.PI / 2
+        if (h.axis === 'X') {
+          newX = h.posX + h.dirX * delta
+          if (newX >= FIELD_LIMIT) {
+            newX = FIELD_LIMIT
+            h.dirX = -1
+          } else if (newX <= -FIELD_LIMIT) {
+            newX = -FIELD_LIMIT
+            h.dirX = 1
           }
         }
 
-        return { ...h, pos: newPos }
+        if (h.axis === 'Y') {
+          newY = h.posY + h.dirY * delta
+          if (newY >= FIELD_LIMIT) {
+            newY = FIELD_LIMIT
+            h.dirY = -1
+          } else if (newY <= -FIELD_LIMIT) {
+            newY = -FIELD_LIMIT
+            h.dirY = 1
+          }
+        }
+
+        if (h.ref.current) {
+          h.ref.current.position.set(newX, newY, 0)
+          h.ref.current.rotation.z += 0.5 * delta * (h.dirX || h.dirY)
+          h.ref.current.scale.set(6, 6, 6)
+        }
+
+        return {
+          ...h,
+          posX: newX,
+          posY: newY,
+        }
       })
     )
   })
 
   return (
-    <group>
+    <>
       {hedgehogs.map((h, i) => (
-        <group key={i} ref={h.ref} position={[h.baseX, h.baseY, 0]}>
-          <Hedgehog direction={[1]} index={0} line={h.axis} />
+        <group ref={h.ref} key={i} position={[h.baseX, h.baseY, 0]}>
+          <Hedgehog direction={[]} index={0} line={''} />
         </group>
       ))}
-    </group>
+    </>
   )
 }
 
-export default React.memo(Obstacles)
+export default Obstacles
