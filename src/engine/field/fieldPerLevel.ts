@@ -4,28 +4,23 @@
  *    @function setField Задает количество ячеек по стороне поля
  *    @function getField Возвращает количество ячеек по стороне поля
  */
+import { fieldSizeValidation } from './fieldSizeValidation'
+const DEFAULT_FIELD_SIZE = 5
 /**
  * @var количество ячеек по стороне квадратного игрового поля на текущем уровне
  */
-let fieldPerLevel: number;
+let fieldPerLevel: number = DEFAULT_FIELD_SIZE // Инициализируем значением по умолчанию
 /**
  * Задает количество ячеек по стороне квадратного игрового поля на текущем уровне
- * @param size
+ * @param size - размер поля (количество ячеек по стороне)
  */
 export function setField(size: number): void {
-  if (size < 5) {
-    alert("The field cannot have less than 5 cells on each side!");
-    fieldPerLevel = 5;
-  } else fieldPerLevel = size;
-  if (size % 2 === 0) {
-    alert("The field cannot have even cells on each side!");
-    fieldPerLevel = size + 1;
-  } else fieldPerLevel = size;
+  fieldPerLevel = fieldSizeValidation(size, DEFAULT_FIELD_SIZE)
 }
 /**
  * Возвращает количество ячеек по стороне квадратного игрового поля на текущем уровне
- * @returns field
+ * @returns размер поля
  */
 export function getField(): number {
-  return fieldPerLevel;
+  return fieldPerLevel
 }

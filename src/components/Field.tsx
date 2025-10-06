@@ -1,22 +1,18 @@
-import { fieldCONFIG } from '../config/fieldConfig'
+import { fieldConfig } from '../config/fieldConfig'
 import { getField } from '../engine/field/fieldPerLevel'
 import { Grid } from './Grid'
-import { Line } from './Line'
 
 export const Field = () => {
-  const {
-    fieldCOLOR: fieldColor,
-    fieldRATIO: fieldRatio,
-    // fieldSIZE: fieldSize,
-  } = fieldCONFIG
+  const { position, backgroundColor } = fieldConfig
   const fieldSize = getField()
+  const fieldDimensions: [number, number] = [fieldSize, fieldSize]
+
   return (
     <group>
       <Grid />
-      {/* <Line /> */}
-      <mesh position={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[fieldSize * fieldRatio, fieldSize * fieldRatio]} />
-        <meshStandardMaterial color={fieldColor} />
+      <mesh position={position} receiveShadow>
+        <planeGeometry args={fieldDimensions} />
+        <meshStandardMaterial color={backgroundColor} />
       </mesh>
     </group>
   )
