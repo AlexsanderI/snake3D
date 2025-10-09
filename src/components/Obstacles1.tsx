@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Vector3 } from '@react-three/fiber'
 import { animated, useSprings } from '@react-spring/three'
 import Hedgehog from '../assets/hedgehog/Hedgehog'
-import { getObstaclesFixCoord } from '../../engine/obstacles/obstaclesFix'
+// import { getObstaclesFixCoord } from '../../engine/obstacles/obstaclesFix'
 // import { getField } from "../../engine/field/fieldPerLevel";
 import * as OBSTACLES_X from '../engine/obstacles/obstaclesX'
 // import { getTimer } from "../../engine/time/timer";
@@ -14,33 +14,34 @@ import { getTimer } from '../engine/time/timer'
 // import Hedgehog from "../../assets/hedgehogModel/Hedgehog";
 import { positionAnimationProps } from '../types/obstacleTypes'
 import { easeLinear } from 'd3-ease'
-import Mushroom from '../../assets/mushroomModel/Mushroom'
+// import Mushroom from '../../assets/mushroomModel/Mushroom'
+import { getObstaclesFixCoord } from '../engine/obstacles/obstaclesFix'
 
-export const ObstaclesFix: React.FC = () => {
-  const gridSize = getField()
-  const [obstaclesFixCoord, setObstaclesFixCoord] = useState<Array<Vector3>>([[0, 0, 0]])
-  useEffect(() => {
-    const fixObstacles: Vector3[] = getObstaclesFixCoord().map((coord) => {
-      const fixObstacleX = Math.round(coord[0] - gridSize / 2 - 1)
-      const fixObstaclesY = Math.round(coord[1] - gridSize / 2 - 1)
-      return [fixObstacleX, fixObstaclesY, 0]
-    })
-    setObstaclesFixCoord(fixObstacles)
-  }, [getTimer()])
-  return (
-    <>
-      {obstaclesFixCoord.map((coord: Vector3) => (
-        <mesh key={Math.random()} position={coord}>
-          <Mushroom
-            position={[0, 0, 0.5]}
-            rotation={[1.57, 0, 0]}
-            scale={[0.08, 0.08, 0.08]}
-          />
-        </mesh>
-      ))}
-    </>
-  )
-}
+// export const ObstaclesFix: React.FC = () => {
+//   const gridSize = getField()
+//   const [obstaclesFixCoord, setObstaclesFixCoord] = useState<Array<Vector3>>([[0, 0, 0]])
+//   useEffect(() => {
+//     const fixObstacles: Vector3[] = getObstaclesFixCoord().map((coord: number[]) => {
+//       const fixObstacleX = Math.round(coord[0] - gridSize / 2 - 1)
+//       const fixObstaclesY = Math.round(coord[1] - gridSize / 2 - 1)
+//       return [fixObstacleX, fixObstaclesY, 0]
+//     })
+//     setObstaclesFixCoord(fixObstacles)
+//   }, [getTimer()])
+//   return (
+//     <>
+//       {obstaclesFixCoord.map((coord: Vector3) => (
+//         <mesh key={Math.random()} position={coord}>
+//           <Mushroom
+//             position={[0, 0, 0.5]}
+//             rotation={[1.57, 0, 0]}
+//             scale={[0.08, 0.08, 0.08]}
+//           />
+//         </mesh>
+//       ))}
+//     </>
+//   )
+// }
 export const ObstaclesX: React.FC = () => {
   const gridSize = getField()
   const [obstaclesXCoord, setObstaclesXCoord] = useState<positionAnimationProps[]>([

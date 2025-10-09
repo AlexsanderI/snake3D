@@ -11,6 +11,7 @@ import { getSnakeBodyCoord } from '../engine/snake/snake'
 import { getCurrentFoodNumber } from '../engine/food/currentFoodNumber'
 // import Hedgehog from '../assets/hedgehog/Hedgehog'
 import Obstacles from './Obstacles'
+// import { ObstaclesX } from './Obstacles1'
 
 let counter = 0
 let currentFoodNumber = 0
