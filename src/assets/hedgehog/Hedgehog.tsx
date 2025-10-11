@@ -31,7 +31,7 @@ function Hedgehog(props: hedgehogProps) {
       position={[
         line === 'X' ? direction[index] : 0,
         line === 'Y' ? direction[index] : 0,
-        0,
+        5,
       ]}
     >
       <mesh
@@ -49,7 +49,7 @@ function Hedgehog(props: hedgehogProps) {
         <coneGeometry args={[0.4, 0.5, 3, 1, false, 4.7, 3.14]} />
         <meshStandardMaterial color='#A18E74' />
       </mesh>
-      <mesh
+      {/* <mesh
         rotation={[
           0,
           0,
@@ -58,7 +58,7 @@ function Hedgehog(props: hedgehogProps) {
       >
         <latheGeometry args={[frontPoints]} />
         <meshStandardMaterial color={'#5B586A'} />
-      </mesh>
+      </mesh> */}
       <mesh
         position={[0, 0, 0]}
         rotation={[

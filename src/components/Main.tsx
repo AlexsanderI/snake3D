@@ -126,7 +126,7 @@ const Scene = () => (
     {isDev && (
       <Suspense fallback={null}>
         {/* при необходимости раскомментируйте */}
-        {/* <OrbitControls makeDefault /> */}
+        <OrbitControls makeDefault />
       </Suspense>
     )}
     <Suspense fallback={null}>
