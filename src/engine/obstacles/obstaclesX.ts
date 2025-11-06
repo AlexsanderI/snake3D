@@ -10,55 +10,62 @@
  *    @function getObstaclesXCoord Возвращает массив координат
  *    @function getObstaclesStepX Возвращает массив шагов
  */
-import { getObstacles } from "./obstaclesPerLevel";
+import { getObstacles } from './obstaclesPerLevel'
 /**
  * @var массив строк 'x' для каждого препятствия, движущегося по горизонтали
  */
-let obstaclesX: string[] = [];
+let obstaclesX: string[] = []
 /**
  * @var массив координат [x, y] для препятствий, движущихся по горизонтали
  */
-let obstaclesXCoord: number[][] = [];
+let obstaclesXCoord: number[][] = []
 /**
  * @var массив из 1 и -1, шагов для препятствий, движущихся по горизонтали
  */
-let obstaclesStepX: number[] = [];
+let obstaclesStepX: number[] = []
 /**
  * Выделяет из всех препятствий те, что движутся по горизонтали и задает им шаг
  */
 export function setObstaclesX(): void {
-  obstaclesX = getObstacles().filter((obstacle) => obstacle === "x");
-  obstaclesStepX = obstaclesX.map(() => (Math.random() < 0.5 ? 1 : -1));
+  obstaclesX = getObstacles().filter((obstacle) => obstacle === 'x')
+  obstaclesStepX = obstaclesX.map(() => (Math.random() < 0.5 ? 1 : -1))
 }
 /**
  * Заносит массив координат [x, y] препятствий в obstaclesXCoord
  * @param obstacles массив координат [x, y] препятствий
  */
 export function setObstaclesXCoord(obstacles: number[][]): void {
-  obstaclesXCoord = [...obstacles];
+  console.log('x', obstacles[0][1])
+
+  obstaclesXCoord = [...obstacles]
 }
 /**
  * Задает шаг для всех препятствий, движущихся по горизонтали
  * @param steps массив шагов для всех препятствий, движущихся по горизонтали
  */
 export function setObstaclesStepX(steps: number[]): void {
-  obstaclesStepX = [...steps];
+  obstaclesStepX = [...steps]
 }
 /**
  * Возвращает массив строк 'x' для препятствий, движущихся по горизонтали
  */
 export function getObstaclesX(): string[] {
-  return obstaclesX;
+  const output = [...obstaclesX]
+  return output
 }
 /**
  * Возвращает массив координат [x, y] препятствий, движущихся по горизонтали
  */
 export function getObstaclesXCoord(): number[][] {
-  return obstaclesXCoord;
+  // console.log('x: ', obstaclesXCoord[0][0])
+  const output = obstaclesXCoord.map((coord) => [...coord])
+
+  return output
 }
 /**
  * Возвращает массив шагов препятствий, движущихся по горизонтали
  */
 export function getObstaclesStepX(): number[] {
-  return obstaclesStepX;
+  const output = [...obstaclesStepX]
+  return output
 }
