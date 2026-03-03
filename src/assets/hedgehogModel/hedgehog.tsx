@@ -3,17 +3,12 @@ import { hedgehogProps } from '../../types/obstacleTypes'
 
 function Hedgehog(props: hedgehogProps) {
   const { direction, index, line } = props
-  // console.log(line, direction)
 
   const frontPoints = []
   for (let i = 0; i < 10; i++) {
     frontPoints.push(new Vector2((Math.sin(i * 0.2) * 8 + 8) / 25, (i + 6) / 15))
   }
 
-  // const backPoints = []
-  // for (let i = 0; i < 10; i++) {
-  //   backPoints.push(new Vector2((Math.sin(i * 0.2) * 8 + 8) / 25, (i * 0.9 - 21) / 15))
-  // }
   const backPoints = []
 
   // Полукруглая заглушка (3 точки)
@@ -33,10 +28,13 @@ function Hedgehog(props: hedgehogProps) {
       position={[
         line === 'x' ? direction[index] * 0.75 : 0,
         line === 'y' ? direction[index] * 0.75 : 0,
-        0.1,
+        0,
       ]}
     >
+      {/* Конус (нос) */}
       <mesh
+        castShadow
+        receiveShadow
         position={[
           line === 'y' ? 0 : -0.2 * direction[index],
           line === 'y' ? -0.2 * direction[index] : 0,
@@ -51,7 +49,11 @@ function Hedgehog(props: hedgehogProps) {
         <coneGeometry args={[0.4, 0.5, 3, 1, false, 4.7, 3.14]} />
         <meshStandardMaterial color='#A18E74' />
       </mesh>
+
+      {/* Передняя часть тела */}
       <mesh
+        castShadow
+        receiveShadow
         rotation={[
           0,
           0,
@@ -61,7 +63,11 @@ function Hedgehog(props: hedgehogProps) {
         <latheGeometry args={[frontPoints, 12, -Math.PI / 2, Math.PI]} />
         <meshStandardMaterial color={'#5B586A'} />
       </mesh>
+
+      {/* Задняя часть тела */}
       <mesh
+        castShadow
+        receiveShadow
         position={[0, 0, 0]}
         rotation={[
           0,
@@ -73,7 +79,10 @@ function Hedgehog(props: hedgehogProps) {
         <meshStandardMaterial color={'#5B586A'} />
       </mesh>
 
+      {/* Шип 1 */}
       <mesh
+        castShadow
+        receiveShadow
         position={[
           line === 'x' ? direction[index] * -0.03 : 0,
           line === 'y' ? direction[index] * -0.03 : 0,
@@ -83,7 +92,11 @@ function Hedgehog(props: hedgehogProps) {
         <sphereGeometry args={[0.1, 5]} />
         <meshStandardMaterial color={'#5B586A'} />
       </mesh>
+
+      {/* Шип 2 */}
       <mesh
+        castShadow
+        receiveShadow
         position={
           line === 'y'
             ? [direction[index] * 0.2, direction[index] * -0.3, 0.2]
@@ -93,7 +106,11 @@ function Hedgehog(props: hedgehogProps) {
         <sphereGeometry args={[0.1, 5]} />
         <meshStandardMaterial color={'#5B586A'} />
       </mesh>
+
+      {/* Шип 3 */}
       <mesh
+        castShadow
+        receiveShadow
         position={
           line === 'y'
             ? [direction[index] * -0.2, direction[index] * -0.3, 0.2]
