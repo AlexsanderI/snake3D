@@ -2,7 +2,7 @@ import { createRef, RefObject, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import SnakeHead from '../assets/snakeModel/snakeHead/SnakeHead'
-import SnakeTail from '../assets/snakeModel/snakeTail/snakeTail'
+import SnakeTail from '../assets/snakeModel/snakeTail/SnakeTail'
 import React from 'react'
 import { snakeAnimation } from '../animations/snakeAnimation/snakeAnimation'
 import { getSnakeBodyCoord } from '../engine/snake/snake'
@@ -19,12 +19,13 @@ import { checkMistake } from '../engine/lives/isMistake'
 /**
  * Компонент Snake рендерит 3D-модель змеи, состоящую из головы, тела и хвоста.
  */
-const Snake = () => {
+const Snake = (): JSX.Element => {
   const snakeMaxLength = getAmountOfFood() + 1
-  const [snakeCurrentLength, setSnakeCurrentLength] = useState(3)
-  const snake = Array(snakeMaxLength).fill(1)
-  const [snakeSeparate, setSnakeSeparate] = useState(Array(snakeMaxLength).fill(1))
-  const snakeRefs = useRef<{ [key: string]: RefObject<THREE.Group> }>({})
+  const [snakeCurrentLength, setSnakeCurrentLength] = useState<number>(3)
+  const [snakeSeparate, setSnakeSeparate] = useState<number[]>(
+    Array(snakeMaxLength).fill(1),
+  )
+  const snakeRefs = useRef<Record<string, RefObject<THREE.Group>>>({})
 
   const getVisibleSnakeUnits = (bodyLength: number, maxLength: number): number[] =>
     Array.from({ length: maxLength }, (_, index) => (index > bodyLength - 3 ? 0 : 1))
