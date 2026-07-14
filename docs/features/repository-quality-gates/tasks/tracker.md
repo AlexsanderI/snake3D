@@ -1,0 +1,17 @@
+# Tracker - repository-quality-gates
+
+> Status of every task in the epic. `implement` updates `done` as it commits each task.
+> States: `todo` - `in_progress` - `blocked` - `review` - `done`.
+
+| # | Task | Layer | Owner | Estimate | Blocked by | Status |
+|---|---|---|---|---|---|---|
+| T1 | Pin runtime expectations and artifact hygiene | docs | Tech Lead | S | - | todo |
+| T2 | Extract an explicit TypeScript typecheck gate | app | Tech Lead | S | - | todo |
+| T3 | Add a focused ESLint gate | app | Tech Lead | M | - | todo |
+| T4 | Add the Vitest deterministic test runner | tests | Tech Lead | M | - | todo |
+| T5 | Seed focused deterministic coverage | tests | Tech Lead | S | T4 | todo |
+| T6 | Compose the aggregate deterministic verify command | wiring | Tech Lead | S | T2, T3, T5 | todo |
+| T7 | Add pull-request verification workflow | worker | Maintainer | S | T6 | todo |
+| T8 | Document setup, gate order, and completion rules | docs | Tech Lead | M | T1, T6, T7 | todo |
+
+**Total:** 8 tasks, ~4-5 person-days.
