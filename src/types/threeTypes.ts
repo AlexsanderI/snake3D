@@ -1,5 +1,4 @@
-import { Vector3 } from 'three'
-import { Object3D } from 'three'
+import { Object3D, Vector3 } from 'three'
 
 export interface GeometryProps {
   position: Vector3

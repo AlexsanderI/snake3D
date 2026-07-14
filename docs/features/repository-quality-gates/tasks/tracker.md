@@ -7,7 +7,7 @@
 |---|---|---|---|---|---|---|
 | T1 | Pin runtime expectations and artifact hygiene | docs | Tech Lead | S | - | done |
 | T2 | Extract an explicit TypeScript typecheck gate | app | Tech Lead | S | - | done |
-| T3 | Add a focused ESLint gate | app | Tech Lead | M | - | todo |
+| T3 | Add a focused ESLint gate | app | Tech Lead | M | - | done |
 | T4 | Add the Vitest deterministic test runner | tests | Tech Lead | M | - | todo |
 | T5 | Seed focused deterministic coverage | tests | Tech Lead | S | T4 | todo |
 | T6 | Compose the aggregate deterministic verify command | wiring | Tech Lead | S | T2, T3, T5 | todo |

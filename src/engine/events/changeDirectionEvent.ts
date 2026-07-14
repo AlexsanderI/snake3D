@@ -11,12 +11,11 @@ import { getInterruptGame } from './interruptGameEvent'
 import { checkPause } from './pauseEvent'
 import { checkTimerWorking } from '../time/isTimer'
 import { checkContact } from './isContact'
-import { getSnakeHeadParams } from '../snake/snake'
+import { getSnakeBodyCoord, getSnakeHeadParams } from '../snake/snake'
 import { getField } from '../field/fieldPerLevel'
 import { getObstaclesFixCoord } from '../obstacles/obstaclesFix'
 import { getObstaclesXCoord } from '../obstacles/obstaclesX'
 import { getObstaclesYCoord } from '../obstacles/obstaclesY'
-import { getSnakeBodyCoord } from '../snake/snake'
 import snakeCoordCompare from './snakeCoordCompare'
 
 /**

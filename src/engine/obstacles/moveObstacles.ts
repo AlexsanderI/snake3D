@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 /**
  * @module moveObstacles.ts Перемещает препятствия по игровому полю
  *    @function moveObstacles Управляет движением среди других объектов на поле

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  *  @module snakeCatchesFoodEvent.ts Управляет контактом змейки с едой
  *     @void isFoodEaten Фиксирует момент поедания еды змейкой
