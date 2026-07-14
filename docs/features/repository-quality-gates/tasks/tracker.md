@@ -10,7 +10,7 @@
 | T3 | Add a focused ESLint gate | app | Tech Lead | M | - | done |
 | T4 | Add the Vitest deterministic test runner | tests | Tech Lead | M | - | done |
 | T5 | Seed focused deterministic coverage | tests | Tech Lead | S | T4 | done |
-| T6 | Compose the aggregate deterministic verify command | wiring | Tech Lead | S | T2, T3, T5 | todo |
+| T6 | Compose the aggregate deterministic verify command | wiring | Tech Lead | S | T2, T3, T5 | done |
 | T7 | Add pull-request verification workflow | worker | Maintainer | S | T6 | todo |
 | T8 | Document setup, gate order, and completion rules | docs | Tech Lead | M | T1, T6, T7 | todo |
 

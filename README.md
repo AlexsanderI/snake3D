@@ -84,15 +84,20 @@ tests.
 
 ## Current verification gate
 
-Before considering a code change complete, run:
+Before considering a code change ready for review, run the deterministic aggregate gate:
 
 ```bash
-npm run build
+npm run verify
+```
+
+Before considering code work complete, also run the browser stability gate:
+
+```bash
 npm run test:e2e
 ```
 
-The roadmap includes adding `typecheck`, `lint`, unit tests, and a single
-`npm run verify` command.
+`npm run verify` runs type checking, linting, deterministic unit tests, and the
+production build. `npm run test:e2e` remains the Playwright browser stability check.
 
 ## Project structure
 
