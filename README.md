@@ -33,17 +33,16 @@ See [`docs/roadmap.md`](docs/roadmap.md) for priorities and
 
 ## Requirements
 
-Use a supported Node.js version compatible with the current dependencies. Check your
-local versions with:
+Use Node.js 20 or newer. The repository records this in `package.json` `engines`
+and `.nvmrc`; Node 20 is the baseline version for local setup and CI.
+
+Check your local versions with:
 
 ```bash
 node --version
 npm --version
 git --version
 ```
-
-Until the repository pins a Node version in `.nvmrc` or `package.json`, do not assume a
-specific major version without verifying the project locally.
 
 ## Installation
 

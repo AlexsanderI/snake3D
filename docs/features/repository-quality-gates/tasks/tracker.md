@@ -5,7 +5,7 @@
 
 | # | Task | Layer | Owner | Estimate | Blocked by | Status |
 |---|---|---|---|---|---|---|
-| T1 | Pin runtime expectations and artifact hygiene | docs | Tech Lead | S | - | todo |
+| T1 | Pin runtime expectations and artifact hygiene | docs | Tech Lead | S | - | done |
 | T2 | Extract an explicit TypeScript typecheck gate | app | Tech Lead | S | - | todo |
 | T3 | Add a focused ESLint gate | app | Tech Lead | M | - | todo |
 | T4 | Add the Vitest deterministic test runner | tests | Tech Lead | M | - | todo |
