@@ -10,7 +10,8 @@ feature_size: "S"
 
 > **Glossary:** [CONTEXT](./CONTEXT.md)
 > **Reference module / docs / channels used:** `README.md`, `docs/architecture-map.md`,
-> `docs/roadmap.md`, `docs/features/README.md`, `package.json`, `.github/dependabot.yml`.
+> `docs/roadmap.md`, `docs/features/README.md`, `package.json`, `.github/dependabot.yml`,
+> `.github/workflows/quality-gates.yml`.
 
 ## 1. Context
 
@@ -191,3 +192,10 @@ fix instead of merging an unverified change
 ## 8. Open questions
 
 <!-- N/A: no open product questions after specify; tool choice and command ordering are design-stage decisions. -->
+
+## 9. Manual verification notes
+
+- GitHub branch protection and required-check policy are repository settings outside
+  this source tree. Manual maintainer verification is required after merge to mark the
+  `Quality Gates / npm run verify` workflow as required, if the repository has branch
+  protection enabled.

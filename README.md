@@ -48,8 +48,7 @@ git --version
 
 ```bash
 git clone <repository-url>
-cd snake3D
-npm ci
+cd snake3D && npm ci
 npx playwright install chromium
 ```
 
@@ -98,6 +97,21 @@ npm run test:e2e
 
 `npm run verify` runs type checking, linting, deterministic unit tests, and the
 production build. `npm run test:e2e` remains the Playwright browser stability check.
+
+| Command | Purpose | Likely failure owner |
+|---|---|---|
+| `npm run typecheck` | Checks strict TypeScript types without emitting files. | Contributor who changed TypeScript contracts or imports. |
+| `npm run lint` | Checks focused source and test lint rules. | Contributor who changed source, tests, or lint configuration. |
+| `npm run test:unit` | Runs deterministic Vitest checks under `tests/unit`. | Contributor who changed isolated rules, utilities, or unit-test setup. |
+| `npm run build` | Typechecks and creates the production Vite bundle. | Contributor who changed app code, build config, or dependencies. |
+| `npm run verify` | Runs `typecheck`, `lint`, `test:unit`, and `build` in order, stopping at the first failing area. | Contributor preparing the change for review. |
+| `npm run test:e2e` | Runs the Playwright browser stability suite. | Contributor who changed gameplay, browser behavior, or e2e setup. |
+
+Pull requests run `npm ci` and `npm run verify` through the `Quality Gates` GitHub
+Actions workflow. Maintainers should treat a failing workflow as not ready for merge
+until the failing quality area is fixed. Browser stability coverage is still required
+before code work is complete, even though it is kept separate from the deterministic PR
+workflow.
 
 ## Project structure
 
@@ -165,4 +179,5 @@ retention, performance data, and feedback rather than feature volume alone.
 - Keep commits focused.
 - Do not commit generated artifacts.
 - Follow `AGENTS.md` and the active feature specification.
-- Run all available verification gates before requesting review.
+- Run `npm run verify` before requesting review.
+- Run `npm run test:e2e` before declaring code work complete.

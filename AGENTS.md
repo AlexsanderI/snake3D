@@ -76,23 +76,30 @@ be tested automatically. In that case, define an explicit manual verification st
 
 ## Verification gates
 
-At the time this file was created, the repository exposes these commands:
+The repository exposes these verification commands:
 
 ```bash
+npm run typecheck
+npm run lint
+npm run test:unit
+npm run verify
 npm run build
 npm run test:e2e
 ```
 
-Run both before declaring code work complete. If the active branch adds `typecheck`,
-`lint`, `test`, or `verify`, run those as well. Fix the first failing gate before
-continuing.
+Run `npm run verify` before requesting review. It runs `typecheck`, `lint`,
+`test:unit`, and `build` in order and stops at the first failing quality area. Run
+`npm run test:e2e` before declaring code work complete; the Playwright browser
+stability check remains part of completion verification. Fix the first failing gate
+before continuing.
 
 A task is not complete merely because the app opens. The relevant acceptance criteria
 must also be verified.
 
 ## Testing expectations
 
-- Add deterministic unit tests for isolated game rules once a unit-test runner exists.
+- Add deterministic unit tests for isolated game rules under `tests/unit` when changing
+  pure rules or utilities.
 - Add Playwright coverage for critical player journeys and regressions.
 - Keep random-play tests as stability checks, not as the only proof of correctness.
 - For visual or interaction work, verify desktop and mobile-sized viewports manually or
@@ -117,6 +124,7 @@ A feature or task is done only when:
 
 - its acceptance criteria are satisfied;
 - relevant automated tests pass;
+- `npm run verify` passes;
 - `npm run build` passes;
 - `npm run test:e2e` passes, unless the task is explicitly documented as not requiring it;
 - no new browser console errors are introduced;

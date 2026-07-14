@@ -27,19 +27,19 @@ initial local and pull-request verification foundation.
 
 ### P0 outcomes
 
-- [ ] `AGENTS.md`, `README.md`, `docs/architecture-map.md`, and this roadmap are present
+- [x] `AGENTS.md`, `README.md`, `docs/architecture-map.md`, and this roadmap are present
       and accurate.
-- [ ] Generated output and local artifacts are excluded from Git.
-- [ ] A supported Node.js version is pinned or documented.
-- [ ] `npm ci` works from a clean checkout.
-- [ ] `npm run build` passes reliably.
-- [ ] Existing Playwright tests pass reliably.
-- [ ] Add an explicit `typecheck` script.
-- [ ] Add ESLint and a `lint` script.
-- [ ] Add a unit-test runner and initial deterministic game-rule tests.
-- [ ] Add one `npm run verify` command that runs all deterministic gates in a sensible
+- [x] Generated output and local artifacts are excluded from Git.
+- [x] A supported Node.js version is pinned or documented.
+- [x] `npm ci` works from a clean checkout.
+- [x] `npm run build` passes reliably.
+- [x] Existing Playwright tests pass reliably.
+- [x] Add an explicit `typecheck` script.
+- [x] Add ESLint and a `lint` script.
+- [x] Add a unit-test runner and initial deterministic game-rule tests.
+- [x] Add one `npm run verify` command that runs all deterministic gates in a sensible
       order.
-- [ ] Add CI that runs `npm run verify` on pull requests.
+- [x] Add CI that runs `npm run verify` on pull requests.
 - [ ] Establish a baseline for console errors, load time, frame rate, and bundle size.
 
 ### Suggested feature slugs
