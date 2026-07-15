@@ -1,6 +1,5 @@
 import main from './main'
 import { enableScrolling } from './commands/enableScrolling'
-import { getSnakeBodyCoord, getSnakeHeadParams } from './engine/snake/snake'
 /**
  * Глобальные ссылки для очистки слушателей
  */
@@ -60,25 +59,4 @@ if (typeof window !== 'undefined' && typeof window.addEventListener === 'functio
   }
   // expose cleanup helper for e2e tests and HMR consumers
   ;(window as any).__cleanupBootstrap = cleanupBootstrap
-
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'L' || e.key === 'l') {
-      try {
-        const body = getSnakeBodyCoord()
-        const head = getSnakeHeadParams()
-        // Вывод в консоль удобен для Playwright и ручной диагностики
-        // Используем одно сообщение с ключом, чтобы проще фильтровать
-        console.log('SNAKE_DUMP', { body, head })
-      } catch (err) {
-        try {
-          console.error('SNAKE_DUMP_FAILED', err)
-        } catch {}
-      }
-    }
-  }
-  try {
-    window.addEventListener('keydown', onKeyDown, { signal })
-  } catch {
-    window.addEventListener('keydown', onKeyDown)
-  }
 }
