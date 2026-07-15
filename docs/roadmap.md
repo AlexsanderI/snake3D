@@ -25,6 +25,12 @@ own specification and design under `docs/features/<slug>/` before implementation
 [`docs/features/repository-quality-gates/`](features/repository-quality-gates/) and covers the
 initial local and pull-request verification foundation.
 
+**Shipped:** `repository-quality-gates` shipped on 2026-07-15 with local verification,
+pull-request verification, deterministic unit-test coverage, and documented browser stability
+completion gates. See the
+[`repository-quality-gates` changelog](features/repository-quality-gates/CHANGELOG.md) and
+[`PASS` review](features/repository-quality-gates/_review/review-2026-07-15-pass.md).
+
 ### P0 outcomes
 
 - [x] `AGENTS.md`, `README.md`, `docs/architecture-map.md`, and this roadmap are present
